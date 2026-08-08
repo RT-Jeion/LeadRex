@@ -1,5 +1,6 @@
 import json
 from bs4 import BeautifulSoup
+from db import update_database
 
 
 def page_scrapper(page_content):
@@ -11,10 +12,7 @@ def page_scrapper(page_content):
 
     links = soup.find_all("a")
 
-    with open("leads.json", "r", encoding="utf-8") as f:
-        leads = json.load(f)
-        len_leads = len(leads)
-        print(f"leads.json loeded.. with {len_leads} leads")
+    leads = []
 
     for link in links:
         link_text = link.text.strip()
@@ -22,8 +20,9 @@ def page_scrapper(page_content):
         link_url = link.get("href")
 
         if link_text == "Website" and link_url[:4] == "http":
-            sub_str = link_url.split(".")
-            link_name = sub_str[1]
+            link_name = (
+                link_url.split(".com")[0].split("://")[-1].strip("www.").strip("/")
+            )
 
             print("\nLink Name:", link_name)
             print("Link Url:", link_url)
@@ -31,9 +30,7 @@ def page_scrapper(page_content):
             lead = {"Name": link_name, "URL": link_url}
             leads.append(lead)
 
-    with open("leads.json", "w", encoding="utf-8") as f:
-        json.dump(leads, f, indent=1)
-        print("Leads Has been Updated")
+    update_database(leads_lst=leads)
 
     return len(links)
 

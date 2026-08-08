@@ -1,13 +1,25 @@
-from asyncio import sleep
+from enum import unique
 
-from pymongo import MongoClient
+from pymongo import MongoClient, UpdateOne, operations, results
 
-# 1. Connect to the MongoDB server
 client = MongoClient("mongodb://localhost:27017/")
-# 2. Retrieve all database names
-all_databases = client.list_database_names()
+db = client["LeadRex"]
 
-# 3. Print the list
+leads_collection = db["Leads_From_Places"]
 
-for db in all_databases:
-    print("Database:", db)
+
+def update_database(leads_lst):
+    operations = [
+        UpdateOne({"URL": lead["URL"]}, {"$setOnInsert": lead}, upsert=True)
+        for lead in leads_lst
+    ]
+
+    if operations:
+        result = leads_collection.bulk_write(operations)
+        print(f"Inset count:", result.inserted_count)
+        print("Match Found:", result.matched_count)
+        print("Upsert Count:", result.upserted_count)
+
+
+if __name__ == "__main__":
+    pass

@@ -2,6 +2,8 @@
 __pycache__/
 *.py[codz]
 *$py.class
+browser_data/
+leads.json
 
 # C extensions
 *.so
