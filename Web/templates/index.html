@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>LeadRex Links</title>
+    <style>
+      body { font-family: Arial, sans-serif; margin: 0; background: #f5f7fb; color: #111; }
+      .wrap { max-width: 960px; margin: 0 auto; padding: 32px 16px; }
+      .card { background: #fff; border-radius: 14px; padding: 16px; margin-bottom: 12px; box-shadow: 0 1px 4px rgba(0,0,0,.08); }
+      .name { font-weight: 700; font-size: 18px; margin-bottom: 8px; }
+      a { color: #0b63ce; word-break: break-all; }
+      .empty { background: #fff; padding: 24px; border-radius: 14px; text-align: center; color: #555; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <h1>LeadRex Links</h1>
+      {% if links %}
+        {% for link in links %}
+          <div class="card">
+            <div class="name">{{ link.Name }}</div>
+            <div><a href="{{ link.URL }}" target="_blank" rel="noopener noreferrer">{{ link.URL }}</a></div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <div class="empty">No links found in MongoDB.</div>
+      {% endif %}
+    </div>
+  </body>
+  </html>

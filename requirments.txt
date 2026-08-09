@@ -1,3 +1,5 @@
 nodriver
 bs4
 pymongo
+fastapi
+uvicorn

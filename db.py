@@ -22,4 +22,7 @@ def update_database(leads_lst):
 
 
 if __name__ == "__main__":
-    pass
+    for lead in leads_collection.find():
+        url = lead["URL"]
+        if ".compass" in url:
+            print(lead["Name"])

@@ -1,4 +1,5 @@
 import json
+from os import name
 from bs4 import BeautifulSoup
 from db import update_database
 
@@ -23,6 +24,9 @@ def page_scrapper(page_content):
             link_name = (
                 link_url.split(".com")[0].split("://")[-1].strip("www.").strip("/")
             )
+            link_name = link_name.replace(".", " ")
+            link_name = link_name.replace("-", " ")
+            link_name = link_name.title()
 
             print("\nLink Name:", link_name)
             print("Link Url:", link_url)
@@ -36,6 +40,4 @@ def page_scrapper(page_content):
 
 
 if __name__ == "__main__":
-    with open("download.html", "r", encoding="utf-8") as f:
-        html_content = f.read()
-    page_scrapper(html_content)
+    pass

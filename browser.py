@@ -17,17 +17,16 @@ def rnd2():
     return float(slp)
 
 
-async def main():
-
-    user_query = input("Enter you Search Query\n==>")
-    query_url = user_query.replace(" ", "+")
-    print("Starting Searching Session. Query:", user_query)
+async def main(user_query):
 
     user_data = Path("./browser_data")
     user_data.mkdir(exist_ok=True)
 
     browser = await nd.start(headless=False, user_data_dir=str(user_data.absolute()))
     await asyncio.sleep(rnd1())
+
+    query_url = user_query.replace(" ", "+")
+    print("Starting Searching Session. Query:", user_query)
 
     for start in range(0, 200, 20):
         targer_url = f"https://www.google.com/search?q={query_url}&udm=1&start={start}"
@@ -36,12 +35,6 @@ async def main():
         page = await browser.get(targer_url)
 
         await asyncio.sleep(rnd2())
-
-        act = input("Press Enter to continue or type [exit] to the exit....")
-
-        if act.lower() == "exit":
-            print("Exiting Session")
-            break
 
         html_content = await page.get_content()
 
