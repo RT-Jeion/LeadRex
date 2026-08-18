@@ -1,3 +1,5 @@
+import uvicorn
+from pyngrok import ngrok
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
@@ -25,3 +27,27 @@ def main():
         link["_id"] = str(link["_id"])
 
     return links
+
+
+if __name__ == "__main__":
+    import subprocess
+    import time
+    # Define the command and its arguments as a list
+
+    website = ngrok.connect(6767).public_url
+
+    print("Public Url:", website)
+
+    server_process = subprocess.Popen(
+        ["uvicorn", "web:app", "--host", "127.0.0.1", "--port", "6767", "--reload"]
+    )
+
+    # 2. Give the server a brief moment to initialize
+    time.sleep(1.5)
+
+    print("Server is up! Running subsequent code...")
+
+    # Run the process
+    command = ["brave", website]
+    subprocess.run(command)
+    server_process.wait()
