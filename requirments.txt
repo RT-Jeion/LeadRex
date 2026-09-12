@@ -1,6 +1,6 @@
+requests
+dotenv
 nodriver
-bs4
 pymongo
-fastapi
-uvicorn
-pyngrok
+groq
+bs4

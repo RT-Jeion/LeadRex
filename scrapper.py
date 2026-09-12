@@ -1,5 +1,3 @@
-import json
-from os import name
 from bs4 import BeautifulSoup
 from db import update_database
 
@@ -37,7 +35,7 @@ def landing_page_scrap(page_content):
 
             count += 1
 
-    update_database(leads_lst=leads, col_name="Leads_Website__Places")
+    update_database(leads_lst=leads, col_name="Leads_Website__Places", unique_key="URL")
 
     return leads, count
 
@@ -70,7 +68,9 @@ def instagram_link_scrap(page_content):
 
                 leads.append(lead)
 
-    update_database(leads_lst=leads, col_name="Leads_Instragram__Default")
+    update_database(
+        leads_lst=leads, col_name="Leads_Instagram__Default", unique_key="URL"
+    )
 
     return leads, count
 

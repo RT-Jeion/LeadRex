@@ -6,7 +6,7 @@ from fastapi.templating import Jinja2Templates
 from pymongo import MongoClient
 
 client = MongoClient("mongodb://localhost:27017/")
-collection = client["LeadRex"]["Leads_From_Places"]
+collection = client["LeadRex"]["Leads_Website__Places"]
 
 app = FastAPI(title="LeadRex Links")
 templates = Jinja2Templates(directory="templates")
